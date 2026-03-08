@@ -1,0 +1,344 @@
+/* Base Swiper Styles (adapted from carrusel.css) */
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 25px;
+}
+
+.swiper-pagination-bullet {
+    background: #ccc;
+    opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+    background: #2c3e50;
+}
+
+.vertical-swiper {
+    width: 100%;
+    height: 100%;
+    padding: 0 60px;
+    box-sizing: border-box;
+}
+
+.vertical-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+    transform: scale(0.85);
+    height: 220px;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.vertical-swiper .swiper-slide-active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 10;
+}
+
+.slide-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.img-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    z-index: 100;
+}
+
+.img-card img {
+    width: 80%;
+    height: 80%;
+    display: block;
+    object-fit: cover;
+}
+
+.vertical-swiper .swiper-slide-active .img-card {
+    flex-direction: row;
+    align-items: stretch;
+}
+.vertical-swiper .swiper-slide-active .img-card img {
+    width: 50%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.product-info-carousel {
+    padding: 20px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    width: 100%;
+    display: none;
+}
+
+.vertical-swiper .swiper-slide-active .product-info-carousel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 1;
+    width: 50%;
+    text-align: left;
+    padding: 40px;
+    color: #333;
+    background: none;
+    position: static;
+}
+
+.product-info-carousel h3 {
+    margin: 0 0 15px;
+    font-size: 2.2em;
+    color: #2c3e50;
+}
+
+.product-info-carousel p {
+    margin: 0;
+    font-size: 1.4em;
+    color: #555;
+    line-height: 1.5;
+}
+
+.vertical-swiper .swiper-button-next,
+.vertical-swiper .swiper-button-prev {
+    color: black !important;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    transform: rotate(90deg);
+    right: 15px !important;
+    left: auto !important;
+    width: 50px !important;
+    height: 50px !important;
+    position: absolute;
+    z-index: 1000 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.vertical-swiper .swiper-button-prev {
+    top: 5% !important;
+}
+
+.vertical-swiper .swiper-button-next {
+    top: 95% !important;
+}
+
+.external-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1001;
+}
+
+.edit-btn-card,
+.delete-btn-card,
+.cancel-btn-card,
+.save-btn-card {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer !important;
+    color: white;
+    position: relative;
+    z-index: 1001;
+    pointer-events: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    min-width: 100px;
+}
+
+.edit-btn-card {
+    background-color: #3498db;
+}
+
+.delete-btn-card {
+    background-color: #e74c3c;
+}
+
+.cancel-btn-card {
+    background-color: #95a5a6;
+}
+
+.save-btn-card {
+    background-color: #2ecc71;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.edit-input-name {
+    font-size: 1.8em;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.edit-input-desc {
+    font-size: 1.2em;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    height: 100px;
+    font-family: inherit;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.modal-content p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.cancel-btn-modal,
+.delete-btn-modal {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+
+.cancel-btn-modal {
+    background-color: #95a5a6;
+}
+
+.delete-btn-modal {
+    background-color: #e74c3c;
+}
+
+.image-upload-container {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed #ccc;
+    color: #7f8c8d;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.product-image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.uploading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #2c3e50;
+    z-index: 5;
+}

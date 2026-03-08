@@ -1,0 +1,74 @@
+.page-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 999;
+    min-height: 80px;
+    max-width: 100%;
+    background: radial-gradient(circle, rgba(44, 124, 156, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+    font-size: x-large;
+}
+
+.container-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    min-height: 80px;
+    color: white;
+    padding: 0.5em 1em;
+}
+
+.icon-footer {
+    margin: 0 10px;
+    color: white;
+}
+
+/* ============================================================================
+   DISEÑO RESPONSIVO 
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    .page-footer {
+        font-size: medium;
+        min-height: auto;
+        height: auto;
+    }
+
+    .container-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+        padding: 1em;
+        min-height: auto;
+    }
+
+    .container-footer p {
+        margin: 0.25rem 0;
+        font-size: 0.9em;
+    }
+
+    .icon-footer {
+        margin: 0 8px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-footer {
+        font-size: small;
+    }
+
+    .container-footer {
+        padding: 0.8em;
+        gap: 0.4rem;
+    }
+
+    .container-footer p {
+        font-size: 0.8em;
+    }
+
+    .icon-footer {
+        margin: 0 6px;
+        font-size: 1em;
+    }
+}

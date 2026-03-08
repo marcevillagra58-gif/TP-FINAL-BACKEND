@@ -1,0 +1,14 @@
+# Servidor de desarrollo
+node_modules/
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Imágenes subidas localmente
+uploads/
+
+# OS
+.DS_Store
+Thumbs.db

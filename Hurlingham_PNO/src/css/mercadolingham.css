@@ -1,0 +1,128 @@
+.mercadolingham-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f4f4f9;
+    border: 10px solid;
+    border-image-slice: 1;
+    border-image-source: radial-gradient(circle, rgba(44, 124, 156, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+}
+
+.mercadolingham-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.mercadolingham-header h1 {
+    font-size: 3.5em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.mercadolingham-header p {
+    font-size: 1.3em;
+    color: #7f8c8d;
+}
+
+.mercadolingham-intro, .call-to-action, .mercadolingham-footer {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.mercadolingham-intro h2, .producer-directory h2, .call-to-action h2 {
+    font-size: 2.2em;
+    color: #34495e;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.producer-directory h2 {
+    text-align: center;
+}
+
+.producer-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.producer-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.producer-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.producer-image {
+    max-width: 180px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.producer-info {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.producer-info h3 {
+    font-size: 1.6em;
+    color: #2980b9;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.producer-info p {
+    margin-bottom: 15px;
+    flex-grow: 1;
+    color: #555;
+}
+
+.producer-info strong {
+    color: #34495e;
+    margin-top: auto;
+}
+
+.mercadolingham-footer {
+    margin-top: 40px;
+    padding: 20px;
+    font-size: 0.95em;
+    color: #95a5a6;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+}
+
+.mercadolingham-footer strong {
+    color: #7f8c8d;
+}
+
+.highlighted-text {
+    font-weight: bold;
+    color: #2980b9;
+}

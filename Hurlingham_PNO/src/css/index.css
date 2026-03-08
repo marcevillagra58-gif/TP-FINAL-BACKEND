@@ -1,0 +1,30 @@
+/* 
+  Reset universal:
+  - Quita todos los márgenes y paddings por defecto de los navegadores.
+  - Hace que el cálculo del tamaño de los elementos (box-sizing) sea más intuitivo,
+    incluyendo el padding y el borde en el ancho/alto total y no sumándolo.
+*/
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*
+  Asegura que la aplicación pueda ocupar el 100% de la altura de la pantalla,
+  creando una base para el layout de App.jsx.
+*/
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* Estilos base para el body */
+body {
+  background-color: #0f0f0f;
+  color: white;
+  font-family: sans-serif;
+}

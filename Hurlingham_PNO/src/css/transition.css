@@ -1,0 +1,52 @@
+#transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    visibility: hidden;
+    --rotations: 3;
+}
+
+#transition-overlay.show, #transition-overlay.hide {
+    visibility: visible;
+}
+
+#transition-overlay img {
+    transform: scale(0) rotate(0deg);
+}
+
+#transition-overlay.show img {
+    animation: spin-grow 0.7s linear forwards;
+}
+
+#transition-overlay.hide img {
+    animation: spin-shrink 1s linear forwards;
+}
+
+@keyframes spin-grow {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(20) rotate(calc(360deg * var(--rotations)));
+        opacity: 1;
+    }
+}
+
+@keyframes spin-shrink {
+    0% {
+        transform: scale(20) rotate(calc(360deg * var(--rotations)));
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+}

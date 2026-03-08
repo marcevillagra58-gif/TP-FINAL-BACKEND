@@ -1,0 +1,150 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import http from "http";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import bodyParser from "body-parser";
+import jwt from "jsonwebtoken";
+import { Server as SocketServer } from "socket.io";
+
+import { connectMongoDB } from "./src/db/mongo.js";
+import { typeDefs } from "./src/graphql/typeDefs.js";
+import { resolvers } from "./src/graphql/resolvers.js";
+
+// Rutas
+import authRoutes from "./src/routes/auth.routes.js";
+import userRoutes from "./src/routes/users.routes.js";
+import producerRoutes from "./src/routes/producers.routes.js";
+import uploadRoutes from "./src/routes/upload.routes.js";
+import contactRoutes from "./src/routes/contact.routes.js";
+import externalRoutes from "./src/routes/external.routes.js";
+import notificationRoutes from "./src/routes/notifications.routes.js";
+
+dotenv.config();
+
+const app = express();
+const httpServer = http.createServer(app);
+const PORT = process.env.PORT || 3000;
+
+// ============================================================
+// SOCKET.IO SETUP
+// ============================================================
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+  "http://localhost:4173", // Vite preview
+  "https://marcelo-ag.github.io", // Ejemplo de URL de GitHub Pages
+].filter(Boolean);
+
+export const io = new SocketServer(httpServer, {
+  cors: {
+    origin: allowedOrigins,
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("📡 Nuevo cliente conectado:", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("🔌 Cliente desconectado:", socket.id);
+  });
+});
+
+// ============================================================
+// APOLLO SERVER SETUP
+// ============================================================
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+});
+
+// ============================================================
+// MIDDLEWARE GLOBAL
+// ============================================================
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+);
+
+app.use(express.json());
+
+// ============================================================
+// RUTAS REST
+// ============================================================
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "OK",
+    message: "Servidor Hurlingham PNO corriendo (REST + GraphQL)",
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/producers", producerRoutes);
+app.use("/api/upload", uploadRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/external", externalRoutes);
+app.use("/api/notifications", notificationRoutes);
+
+// ============================================================
+// INICIO DEL SERVIDOR (REST + GRAPHQL)
+// ============================================================
+
+const startServer = async () => {
+  try {
+    // 1. Conectar a MongoDB
+    await connectMongoDB();
+    console.log("✅ MongoDB conectado");
+
+    // 2. Iniciar Apollo Server
+    await server.start();
+
+    // 3. Montar middleware de Apollo en /graphql
+    app.use(
+      "/graphql",
+      cors(),
+      bodyParser.json(),
+      expressMiddleware(server, {
+        context: async ({ req }) => {
+          const authHeader = req.headers.authorization || "";
+          if (authHeader.startsWith("Bearer ")) {
+            const token = authHeader.split(" ")[1];
+            try {
+              const decoded = jwt.verify(token, process.env.JWT_SECRET);
+              return { user: decoded };
+            } catch (err) {
+              return { user: null };
+            }
+          }
+          return { user: null };
+        },
+      }),
+    );
+
+    // 4. Ruta 404 (solo para lo que no atraparon REST o GraphQL)
+    app.use((req, res) => {
+      res.status(404).json({ error: "Ruta no encontrada" });
+    });
+
+    // 5. Iniciar servidor HTTP
+    httpServer.listen(PORT, () => {
+      console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+      console.log(`📊 GraphQL endpoint: http://localhost:${PORT}/graphql`);
+      console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
+    });
+  } catch (error) {
+    console.error("❌ Error al iniciar el servidor:", error);
+    process.exit(1);
+  }
+};
+
+startServer();

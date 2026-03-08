@@ -1,0 +1,204 @@
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    border-bottom: 10px solid;
+    border-image-slice: 1;
+    border-image-source: radial-gradient(circle, rgba(44, 124, 156, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2em;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 1.5em 0;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+header nav ul.main-nav {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.auth-links {
+  gap: 1.5em;
+}
+
+.user-info {
+  color: white;
+  font-size: 1.1em;
+}
+
+.login-button, .logout-button {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.login-button:hover, .logout-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.login-button.active {
+    background-color: #abee85;
+    color: #000;
+    border-color: #abee85;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+    border: 1px solid white;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header nav a:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Estilo para el link activo */
+header nav a.active {
+    background-color: #abee85;
+    color: #000;
+    border-color: #abee85;
+}
+
+.homepage-header {
+    position: absolute;
+    background-color: transparent;
+    border-bottom: none;
+}
+
+.homepage-header nav {
+    justify-content: flex-end;
+}
+
+/* Hamburger menu icon (hidden by default) */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5em;
+    gap: 4px;
+}
+
+.hamburger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - Mobile Styles
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    header nav {
+        flex-wrap: wrap;
+        padding: 0 1em;
+    }
+
+    /* Show hamburger menu on mobile */
+    .hamburger-menu {
+        display: flex;
+        order: 1;
+    }
+
+    /* Auth links stay visible */
+    .auth-links {
+        order: 2;
+        gap: 0.5em;
+    }
+
+    /* Main navigation - hidden by default, shown when active */
+    header nav ul.main-nav {
+        display: none;
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        margin-top: 1em;
+    }
+
+    header nav ul.main-nav.active {
+        display: flex;
+    }
+
+    header nav ul.main-nav li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    header nav ul.main-nav li:last-child {
+        border-bottom: none;
+    }
+
+    header nav a {
+        display: block;
+        width: 100%;
+        padding: 1em;
+        font-size: 1em;
+        border: none;
+        border-radius: 0;
+    }
+
+    /* Reduce button sizes */
+    .login-button, .logout-button {
+        font-size: 0.9em;
+        padding: 0.4em 0.8em;
+    }
+
+    .user-info {
+        font-size: 0.9em;
+    }
+
+    /* Homepage header adjustments */
+    .homepage-header nav {
+        justify-content: space-between;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    header nav {
+        padding: 0 0.5em;
+    }
+
+    header nav a {
+        font-size: 0.9em;
+        padding: 0.8em;
+    }
+
+    .login-button, .logout-button {
+        font-size: 0.8em;
+        padding: 0.3em 0.6em;
+    }
+
+    .user-info {
+        font-size: 0.8em;
+    }
+}

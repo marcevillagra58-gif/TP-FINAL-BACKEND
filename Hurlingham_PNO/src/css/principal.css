@@ -1,0 +1,29 @@
+
+.title{
+  font-family: "Meie Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
+}
+
+
+.imagen-principal {
+    width: 95%; /* Ajusta el ancho de la imagen (ej: 80%) */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 10px; /* Opcional: añade bordes redondeados */
+    margin-top: 5px; /* Espacio superior */
+}
+
+/* ── WeatherWidget fijo en la esquina superior derecha ── */
+.weather-wrapper {
+    position: fixed;
+    top: 70px;   /* justo debajo del header */
+    right: 20px;
+    z-index: 90; /* debajo del header (z-index 100) pero sobre el contenido */
+}
+
+.weather-wrapper .weather-widget {
+    width: 220px;
+    background: rgba(10, 20, 40, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
