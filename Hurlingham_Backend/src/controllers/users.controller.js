@@ -92,7 +92,7 @@ export const createUser = async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { username, email, password, role, avatar } = req.body;
+    const { username, name, email, password, role, avatar } = req.body;
 
     // Solo admin puede asignar roles distintos de 'user'
     const assignedRole = req.user?.role === "admin" && role ? role : "user";
@@ -129,7 +129,7 @@ export const createUser = async (req, res) => {
     if (data.role === "producer") {
       try {
         await Producer.create({
-          name: data.username,
+          name: name || data.username, // Usa el nombre público, o el username como fallback
           userId: data.id, // UUID de Supabase
           imageUrl: data.avatar || null,
           description: "Nuevo productor registrado.",
@@ -218,6 +218,26 @@ export const updateUser = async (req, res) => {
 // ─────────────────────────────────────────────
 // DELETE /api/users/:id  (solo admin)
 // ─────────────────────────────────────────────
+import { deleteImage } from "../utils/cloudinary.js"; // Añadimos import
+
+/** Extrae el publicId de una URL de Cloudinary (ej: https://res.cloudinary.com/.../v12345/hurlingham/avatars/abc.jpg -> hurlingham/avatars/abc) */
+const extractCloudinaryPublicId = (url) => {
+  if (!url || !url.includes("cloudinary.com")) return null;
+  try {
+    const parts = url.split("/upload/");
+    if (parts.length < 2) return null;
+    let path = parts[1];
+    // Eliminar versión (ej: v17123123/)
+    if (path.match(/^v\d+\//)) {
+      path = path.replace(/^v\d+\//, "");
+    }
+    // Eliminar extensión
+    return path.substring(0, path.lastIndexOf(".")) || path;
+  } catch (e) {
+    return null;
+  }
+};
+
 export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -229,9 +249,65 @@ export const deleteUser = async (req, res) => {
         .json({ error: "No podés eliminar tu propia cuenta de admin" });
     }
 
-    const { error } = await supabase.from("users").delete().eq("id", id);
+    // Obtener datos del usuario antes de borrarlo
+    const { data: user, error: fetchError } = await supabase
+      .from("users")
+      .select("avatar, role")
+      .eq("id", id)
+      .single();
 
+    if (fetchError || !user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    // Borrar de Supabase
+    const { error } = await supabase.from("users").delete().eq("id", id);
     if (error) throw error;
+
+    // Eliminar avatar de Cloudinary
+    if (user.avatar) {
+      const publicId = extractCloudinaryPublicId(user.avatar);
+      if (publicId)
+        await deleteImage(publicId).catch((e) =>
+          console.log("Error borrando avatar:", e.message),
+        );
+    }
+
+    // Borrar productor de Mongo y limpiar sus imágenes en Cloudinary
+    try {
+      const producer = await Producer.findOneAndDelete({ userId: id });
+      if (producer) {
+        // Borrar imagen pública del productor
+        if (producer.imageUrl) {
+          const publicId = extractCloudinaryPublicId(producer.imageUrl);
+          if (publicId)
+            await deleteImage(publicId).catch((e) =>
+              console.log("Error borrando imagen productor:", e.message),
+            );
+        }
+
+        // Borrar imágenes de todos sus productos
+        if (producer.products && producer.products.length > 0) {
+          for (const product of producer.products) {
+            if (product.imageUrl) {
+              const p_publicId = extractCloudinaryPublicId(product.imageUrl);
+              if (p_publicId)
+                await deleteImage(p_publicId).catch((e) =>
+                  console.log("Error borrando imagen de producto:", e.message),
+                );
+            }
+          }
+        }
+        console.log(
+          `✅ Productor de MongoDB y sus imágenes en Cloudinary eliminados para el usuario ${id}`,
+        );
+      }
+    } catch (mongoErr) {
+      console.error(
+        "❌ Error limpiando productor en MongoDB:",
+        mongoErr.message,
+      );
+    }
 
     // NOTIFICACIÓN EN TIEMPO REAL
     const notification = {

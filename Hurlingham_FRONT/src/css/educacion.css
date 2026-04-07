@@ -1,0 +1,160 @@
+.educacion-page {
+    min-height: calc(100vh - 80px);
+    /* Ajustar al viewport menos aprox el encabezado */
+    height: fit-content;
+    background: #000;
+    color: white;
+    padding: 1rem 1rem 2rem;
+    /* Padding mínimo */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* Alinear arriba */
+}
+
+.educacion-container {
+    max-width: 1400px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Contenedor de Visualización Atómica */
+.atomic-visualization {
+    position: relative;
+    width: 620px;
+    /* Aumentado para acomodar órbita de 300px de radio */
+    height: 620px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Institución Central (UNaHur) */
+.atom-center {
+    position: absolute;
+    z-index: 30;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    /* Permitir clicks pasar a través del contenedor */
+}
+
+/* Envoltorio de Órbita - Maneja desplazamiento de rotación estática y borde */
+.atom-orbit-wrapper {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    /* Posicionamiento y tamaño son manejados en línea por el componente */
+}
+
+/* Animador de Órbita - Maneja rotación continua */
+.atom-orbit-animator {
+    animation: rotateOrbit 20s linear infinite;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Elemento de Órbita */
+.orbit-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0 0;
+    pointer-events: none;
+}
+
+/* Contra-Rotador - Cancela la rotación de la órbita */
+.orbit-counter-rotator {
+    animation: counterRotate 20s linear infinite;
+}
+
+/* Fijador Estático - Cancela el ángulo de colocación */
+.orbit-static-fixer {
+    /* Las transformaciones se aplican en línea en el componente */
+    display: block;
+    /* Asegurar que ocupe espacio */
+}
+
+/* Estilos de Tarjeta de Institución */
+.institution-card {
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #4a90e2;
+    box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: #fff;
+    position: relative;
+    z-index: 40;
+    /* El más alto para asegurar clickabilidad */
+    pointer-events: auto;
+    /* Re-habilitar eventos de puntero */
+}
+
+.institution-card:hover {
+    transform: scale(1.15);
+    border-color: #6bb6ff;
+    box-shadow: 0 0 25px rgba(107, 182, 255, 0.9);
+    z-index: 50;
+}
+
+.institution-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+/* Animaciones de Rotación */
+@keyframes rotateOrbit {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes counterRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+/* Diseño Responsivo */
+@media (max-width: 1200px) {
+    .atomic-visualization {
+        width: 600px;
+        height: 600px;
+    }
+}
+
+@media (max-width: 900px) {
+    .atomic-visualization {
+        width: 500px;
+        height: 500px;
+    }
+
+    .educacion-page {
+        padding: 2rem 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .atomic-visualization {
+        width: 350px;
+        height: 350px;
+    }
+}

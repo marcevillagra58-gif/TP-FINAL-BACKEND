@@ -1,0 +1,215 @@
+/* ── ContactMessagesModal ───────────────────────────────── */
+
+.cmm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.cmm-container {
+  background: #1a1a2e;
+  border: 1px solid #2a2a4a;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.cmm-header {
+  background: linear-gradient(135deg, #0f3460, #16213e);
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border-bottom: 1px solid #2a2a4a;
+  position: relative;
+}
+
+.cmm-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cmm-title-row h2 {
+  margin: 0;
+  color: #e0e0e0;
+  font-size: 1.3rem;
+}
+
+.cmm-badge {
+  background: #e74c3c;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.cmm-filters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cmm-filter-btn {
+  background: transparent;
+  border: 1px solid #4a4a7a;
+  color: #a0a0c0;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cmm-filter-btn:hover,
+.cmm-filter-btn.active {
+  background: #3498db;
+  border-color: #3498db;
+  color: white;
+}
+
+.cmm-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: #a0a0c0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.cmm-close:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.cmm-body {
+  overflow-y: auto;
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cmm-empty {
+  text-align: center;
+  color: #606080;
+  padding: 2rem;
+  font-style: italic;
+}
+
+/* ── Cards ─────────────────────────── */
+.cmm-card {
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid transparent;
+  transition: background 0.2s;
+}
+
+.cmm-unread {
+  background: #1e2a4a;
+  border-left-color: #3498db;
+}
+
+.cmm-read {
+  background: #15151f;
+  border-left-color: #3a3a5a;
+}
+
+.cmm-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.cmm-sender {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cmm-name {
+  color: #e0e0e0;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.cmm-new-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3498db;
+  display: inline-block;
+}
+
+.cmm-date {
+  color: #606080;
+  font-size: 0.78rem;
+}
+
+.cmm-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.82rem;
+  color: #7080a0;
+  margin-bottom: 0.6rem;
+}
+
+.cmm-message {
+  color: #c0c0d0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 0.8rem;
+  white-space: pre-wrap;
+}
+
+.cmm-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.cmm-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cmm-btn-reply {
+  background: #2980b9;
+  color: white;
+}
+
+.cmm-btn-reply:hover { background: #3498db; }
+
+.cmm-btn-read {
+  background: #27ae60;
+  color: white;
+}
+
+.cmm-btn-read:hover { background: #2ecc71; }
+
+.cmm-btn-unread {
+  background: #3a3a5a;
+  color: #a0a0c0;
+}
+
+.cmm-btn-unread:hover { background: #4a4a6a; color: white; }

@@ -1,0 +1,203 @@
+/* Linkea los estilos de cada pagina */
+@import 'mapa.css';
+@import 'infinito.css';
+@import 'principal.css';
+@import 'cultura.css';
+@import 'proximamente.css';
+
+body {
+    margin: 0;
+    background-color: black;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.page {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.page.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.9s ease-in-out;
+}
+
+#app-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: white;
+    text-align: center;
+}
+
+.container .nav-btn {
+    padding: 1em 2em;
+    background: #333;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5em;
+    transition: background 0.3s, color 0.3s;
+}
+
+.container .nav-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+main {
+    transition: margin-top 0.5s ease-in-out;
+}
+
+header.visible + #app-container main {
+    margin-top: 100px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+    border-bottom: 10px solid;
+    border-image-slice: 1;
+    border-image-source: radial-gradient(circle, rgba(44, 124, 156, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+}
+
+header.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.9s ease-in-out;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+    border: 1px solid white;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header nav a:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Estilos de los botones en el nav */
+header nav button.nav-btn {
+    background: none;
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+    border: 1px solid white;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+header nav button.nav-btn:hover {
+    background-color: white;
+    color: black;
+}
+
+header nav a.active-link,
+header nav button.nav-btn.active-link {
+    background-color: #abee85;
+    color: #000;
+    border-color: #abee85;
+}
+
+/* Transiciones */
+#transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    visibility: hidden;
+    --rotations: 3;
+}
+
+#transition-overlay.show, #transition-overlay.hide {
+    visibility: visible;
+}
+
+#transition-overlay img {
+    transform: scale(0) rotate(0deg);
+}
+
+#transition-overlay.show img {
+    animation: spin-grow 0.7s linear forwards;
+}
+
+#transition-overlay.hide img {
+    animation: spin-shrink 1s linear forwards;
+}
+
+@keyframes spin-grow {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(20) rotate(calc(360deg * var(--rotations)));
+        opacity: 1;
+    }
+}
+
+@keyframes spin-shrink {
+    0% {
+        transform: scale(20) rotate(calc(360deg * var(--rotations)));
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+}
+
+.main-content {
+    padding-top: 5em;
+}
+
+

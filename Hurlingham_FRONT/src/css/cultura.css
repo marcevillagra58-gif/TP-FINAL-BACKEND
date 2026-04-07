@@ -1,0 +1,122 @@
+.title-culture{
+    padding-top: 4rem; 
+    text-align: center;
+    font-family: "Meie Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 70px;
+    margin-bottom: 0%;
+}
+
+.title-culture-h2{
+    text-align: center;
+    font-family: "Meie Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    margin: none;
+}
+
+.title-murales{
+    text-align: center;
+    font-family: "Meie Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 70px;
+    margin-bottom: 0%;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 15px 0;
+    gap: 25px;
+    background-color: #111;
+}
+.links a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.links img {
+    max-height: 250px;
+    width: auto;
+    height: auto;
+}
+
+.link-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    padding: 5px 0;
+    color: #FFFFFF;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.links a:hover .link-text {
+    opacity: 1;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+    height: 90vh;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.div1 { grid-area: 1 / 1 / 6 / 4; }
+.div2 { grid-area: 6 / 1 / 9 / 4; }
+.div3 { grid-area: 3 / 4 / 6 / 6; }
+.div4 { grid-area: 1 / 4 / 3 / 6; }
+.div5 { grid-area: 1 / 6 / 4 / 9; }
+.div6 { grid-area: 4 / 6 / 6 / 9; }
+.div7 { grid-area: 6 / 4 / 9 / 7; }
+.div8 { grid-area: 6 / 7 / 9 / 9; }
+
+.parent div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, z-index 0s linear 0.3s;
+}
+
+.parent div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease-in-out;
+}
+
+.parent div:hover {
+    z-index: 10;
+    transform: scale(1.1);
+    overflow: visible;
+}
+
+.parent div:hover img {
+    object-fit: contain;
+    width: 200%;
+    height: 200%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    border-radius: 4px;
+}

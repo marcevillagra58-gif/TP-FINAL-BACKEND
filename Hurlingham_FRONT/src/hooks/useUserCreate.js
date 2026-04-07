@@ -35,10 +35,11 @@ export const useUserCreate = () => {
       const userPayload = {
         username: userData.username,
         name: userData.name,
-        email: userData.email || `${sanitizedName}@test.com`,
+        email: userData.email,
         password: generatedPassword,
         role: userData.role || "user",
         avatar: userData.avatar || null,
+        category: userData.category || "",
       };
 
       // Enviar con apiFetch para incluir el token del admin

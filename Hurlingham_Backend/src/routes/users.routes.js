@@ -38,6 +38,11 @@ const createUserValidation = [
     .trim()
     .isLength({ min: 3, max: 50 })
     .withMessage("Username debe tener entre 3 y 50 caracteres"),
+  body("name")
+    .optional()
+    .trim()
+    .isLength({ min: 3, max: 100 })
+    .withMessage("El nombre público debe tener entre 3 y 100 caracteres"),
   body("email").isEmail().withMessage("Email inválido").normalizeEmail(),
   body("password")
     .isLength({ min: 8 })

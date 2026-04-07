@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+        // Store the path before GitHub Pages serves 404
+        // Then redirect to the homepage with the path in the URL
+        var pathSegmentsToKeep = 1; // For /HURLINGHAM_PNO_REACT/
+
+        var location = window.location;
+        var pathSegments = location.pathname.split('/').slice(0, pathSegmentsToKeep + 1);
+        var route = location.pathname.slice(pathSegments.join('/').length);
+
+        // Redirect to index.html with the route as a query parameter
+        location.replace(
+            location.protocol + '//' +
+            location.host +
+            pathSegments.join('/') +
+            '/?redirect=' +
+            encodeURIComponent(route + location.search + location.hash)
+        );
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
